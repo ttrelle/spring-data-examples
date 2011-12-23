@@ -2,11 +2,6 @@ package jpa;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import jpa.User;
-import jpa.UserRepository;
 import junit.framework.Assert;
 
 import org.junit.Before;
@@ -15,22 +10,20 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
-
-
+/**
+ * Tests for Spring Data JPA.
+ * 
+ * @author tobias.trelle
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
 public class JpaRepoTest {
 	
 	 @Autowired UserRepository repo;
-
-	 @PersistenceContext EntityManager em;
 
 	 @Autowired ClassicUserRepository classicRepo;
 	 
@@ -40,13 +33,6 @@ public class JpaRepoTest {
 			 repo.save( new User( String.format("user%02d", i), "User " + i ) );
 		 }
 	 }
-	 
-//	 @Transactional
-//	 @Test public void shouldInsertEntity() {
-//		 User u = new User("foo", "bar");
-//		 em.persist(u);
-//		 em.flush();
-//	 }
 	 
 	 @Test public void shouldUseClassicRepository() {
 		 List<User> users;
