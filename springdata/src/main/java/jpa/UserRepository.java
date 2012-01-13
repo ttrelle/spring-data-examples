@@ -29,7 +29,6 @@ public interface UserRepository extends JpaRepository<User, String> {
 	
 	@Transactional(timeout = 2, propagation = Propagation.REQUIRED)
 	@Query("SELECT u FROM User u WHERE u.fullName = 'User 3'")
-	@QueryHints( @QueryHint(name=JpaHints.TIMEOUT, value="5000") )
 	List<User> findByGivenQuery();
 	
 	List<User> findByIdAndFullName(@Param("id") String id, @Param("fullName") String fullname);

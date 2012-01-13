@@ -26,9 +26,8 @@ public class JpaRepoTest {
 	 @Autowired UserRepository repo;
 
 	 @Autowired ClassicUserRepository classicRepo;
-	 
-	 @Before 
-	 public void setUp() {
+	  
+	 @Before public void setUp() {
 		 for ( int i = 0; i < 6; i++ ) {
 			 repo.save( new User( String.format("user%02d", i), "User " + i ) );
 		 }
