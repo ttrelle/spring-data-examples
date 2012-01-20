@@ -10,7 +10,7 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries( {
 	@NamedQuery( name="User.findByUser5", query = "SELECT u FROM User u where u.fullName = 'User 5'" ),
-	@NamedQuery( name="User.classisQuery", query = "SELECT u FROM User u where u.fullName = :fullName" ),
+	@NamedQuery( name="User.classisQuery", query = "SELECT u FROM User u where u.fullName = :fullName" )
 })
 public class User {
 
