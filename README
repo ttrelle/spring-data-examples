@@ -1,1 +1,7 @@
-Java source examples for my blog post series on the Spring Data project: http://blog.codecentric.de/en/2011/12/spring-data-commons/
+Java source examples for my blog post series on the Spring Data project.
+
+Part 1: Spring Data Commons
+http://blog.codecentric.de/en/2011/12/spring-data-commons/
+ 
+Part 2: Spring Data JPA
+http://blog.codecentric.de/en/2012/01/spring-data-jpa/
