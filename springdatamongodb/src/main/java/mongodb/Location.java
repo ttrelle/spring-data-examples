@@ -1,23 +1,18 @@
 package mongodb;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 
 public class Location {
 
 	@Id private String id;
 	
-	@Indexed(name="2d")
-	private double[] pos;
+	private double[] position;
 	
-	private String name;
-
 	public Location() {}
 	
-	public Location(String id, double x, double y, String name) {
+	public Location(String id, double x, double y) {
 		this.id = id;
-		this.pos = new double[] {x,y};
-		this.name = name;
+		this.position = new double[] {x,y};
 	}
 	
 	public String getId() {
@@ -28,22 +23,17 @@ public class Location {
 		this.id = id;
 	}
 
-	public double[] getPos() {
-		return pos;
+	public double[] getPosition() {
+		return position;
 	}
 
-	public void setPos(double[] pos) {
-		this.pos = pos;
+	public void setPosition(double[] pos) {
+		this.position = pos;
 	}
 
-	public String getName() {
-		return name;
+	@Override
+	public String toString() {
+		return String.format("%s(%1.3f, %1.3f)", id, position[0], position[1]);
 	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	
 	
 }
