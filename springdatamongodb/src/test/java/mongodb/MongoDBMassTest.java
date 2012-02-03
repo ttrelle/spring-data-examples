@@ -24,7 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration
 public class MongoDBMassTest {
 
-	private static final int N_POINTS = 1000000;
+	private static final int N_POINTS = 100000;
 
 	private static final int N_QUERIES = 100;
 	
@@ -46,7 +46,7 @@ public class MongoDBMassTest {
 		 }
 		 out("Preparing data (" + N_POINTS + " locations) ...");
 		 repo.save(locations);
-		 out("Done");
+		 out("Done.");
 	}
 	
 	@Test
@@ -75,7 +75,7 @@ public class MongoDBMassTest {
 	
 	@After
 	public void tearDown() {
-		//repo.deleteAll();
+		repo.deleteAll();
 	}
 
 	private static void out(Object o) {
