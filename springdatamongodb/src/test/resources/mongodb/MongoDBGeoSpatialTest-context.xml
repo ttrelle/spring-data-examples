@@ -15,13 +15,6 @@
         http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd        
         ">
 
-
-<!-- Connection to MongoDB server
-<mongo:mongo host="localhost" port="27017">
-	<mongo:options />
-</mongo:mongo>
--->
-
 <!-- Connection to MongoDB server -->
 <mongo:db-factory host="localhost" port="27017" dbname="test" />
 <!-- MongoDB Template -->
