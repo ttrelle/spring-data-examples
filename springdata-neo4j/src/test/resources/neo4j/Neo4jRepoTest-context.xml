@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<beans
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns="http://www.springframework.org/schema/beans"
+ 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:neo4j="http://www.springframework.org/schema/data/neo4j"
+
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/data/neo4j	
+       	http://www.springframework.org/schema/data/neo4j/spring-neo4j-2.0.xsd                
+        ">
+
+<!-- REST Connection to Neo4j server -->
+<bean id="restGraphDatabase" 
+	class="org.springframework.data.neo4j.rest.SpringRestGraphDatabase">
+  <constructor-arg value="http://localhost:7474/db/data/" />
+</bean>
+
+<!-- Neo4j configuration (template) -->
+<neo4j:config graphDatabaseService="restGraphDatabase" />
+
+<!-- Package w/ automagic repositories -->
+<neo4j:repositories base-package="neo4j" /> 
+
+	
+</beans>
