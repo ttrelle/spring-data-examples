@@ -11,11 +11,11 @@ This projects holds the Java source examples for my blog post series on the Spri
 
 The projects are using a Maven based build. To run the tests on the command line use
 
-   mvn clean test
+	mvn clean test
    
 If you want to use an IDE like Eclipse run
 
-   mvn eclipse:eclipse
+	mvn eclipse:eclipse
    
 and set the Eclipse variable M2_REPO pointing to your local Maven repository. Or just import the project as an existing Maven project if you are using the m2 plugin.
  
