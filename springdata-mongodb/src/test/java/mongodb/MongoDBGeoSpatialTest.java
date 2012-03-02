@@ -48,7 +48,7 @@ public class MongoDBGeoSpatialTest {
 		 
 		 repo.save( new Location("Berlin", 13.405838, 52.531261 ));
 		 repo.save( new Location("Cologne", 6.921272, 50.960157 ));
-		 repo.save( new Location("Düsseldorf", 6.810036, 51.224088 ) );		 
+		 repo.save( new Location("Dï¿½sseldorf", 6.810036, 51.224088 ) );		 
 	 }
 
 	@Test public void shouldFindSelf() {
@@ -56,7 +56,7 @@ public class MongoDBGeoSpatialTest {
 		List<Location> locations = repo.findByPositionNear(DUS , new Distance(1, Metrics.KILOMETERS) );
 
 		// then
-		assertLocations(locations, "Düsseldorf");
+		assertLocations(locations, "Dï¿½sseldorf");
 	}
 	
 	@Test public void shouldFindCologne() {
@@ -64,7 +64,7 @@ public class MongoDBGeoSpatialTest {
 		List<Location> locations = repo.findByPositionNear(DUS , new Distance(70, Metrics.KILOMETERS) );
 
 		// then
-		assertLocations(locations, "Düsseldorf", "Cologne");
+		assertLocations(locations, "Dï¿½sseldorf", "Cologne");
 	}
 
 	@Test public void shouldFindCologneAndBerlin() {
@@ -72,7 +72,7 @@ public class MongoDBGeoSpatialTest {
 		List<Location> locations = repo.findByPositionNear(DUS , new Distance(350, Metrics.MILES) );
 
 		// then
-		assertLocations(locations, "Düsseldorf", "Cologne", "Berlin");
+		assertLocations(locations, "Dï¿½sseldorf", "Cologne", "Berlin");
 	}
 	
 	@Test public void shouldFindAll() {
@@ -80,7 +80,7 @@ public class MongoDBGeoSpatialTest {
 		List<Location> locations = repo.findAll();
 
 		// then
-		assertLocations(locations, "A", "B", "C", "D", "Berlin", "Cologne", "Düsseldorf");
+		assertLocations(locations, "A", "B", "C", "D", "Berlin", "Cologne", "Dï¿½sseldorf");
 	}
 
 	@Test public void shouldFindAroundOrigin() {
@@ -101,8 +101,6 @@ public class MongoDBGeoSpatialTest {
 		assertLocations(locations, "B", "C");
 	}
 
-	@Test
-	
 	@After
 	public void tearDown() {
 		repo.deleteAll();
