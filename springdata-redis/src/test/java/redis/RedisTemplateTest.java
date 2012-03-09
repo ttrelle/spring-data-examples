@@ -9,7 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
-public class RedisRepoTest {
+public class RedisTemplateTest {
 	
 	@Autowired UserRepository repo;
 	
