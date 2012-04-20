@@ -15,13 +15,8 @@
 <!-- Redis Template -->
 <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
 	<property name="connectionFactory" ref="jedisConnectionFactory" />
-	<property name="valueSerializer">
-		<bean id="redisJsonSerializer" class="org.springframework.data.redis.serializer.JacksonJsonRedisSerializer">
-			<constructor-arg type="java.lang.Class" value="java.lang.String"/>
-		</bean>   
-	</property>
 </bean>
 
-<bean class="redis.UserRepository"/>
+<bean class="redis.StringStringRepository"/>
 
 </beans>
