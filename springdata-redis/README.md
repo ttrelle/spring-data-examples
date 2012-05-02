@@ -2,6 +2,7 @@
 
 This projects holds the Java source examples for my blog post series on the Spring Data project:
 
+* [Part 6: Spring Data Redis](http://blog.codecentric.de/en/2012/04/spring-data-redis/)
 * [Part 5: Spring Data Neo4j](http://blog.codecentric.de/en/2012/02/spring-data-neo4j/)
 * [Part 4: Geospatial Queries with Spring Data MongoDB](http://blog.codecentric.de/en/2012/02/spring-data-mongodb-geospatial-queries/)
 * [Part 3: Spring Data MongoDB](http://blog.codecentric.de/en/2012/02/spring-data-mongodb/)
