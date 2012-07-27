@@ -7,11 +7,14 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>springdata mongodb</name>
-	<url>http://maven.apache.org</url>
+	<name>Spring Data MongoDB Examples</name>
+	<url>https://github.com/ttrelle/spring-data-examples/tree/master/springdata-mongodb</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<spring.data.mongodb.version>1.1.0.M2</spring.data.mongodb.version>
+		<spring.version>3.2.0.M1</spring.version>
+		<junit.version>4.10</junit.version>		
 	</properties>
 
 	<dependencies>
@@ -19,7 +22,7 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-mongodb</artifactId>
-			<version>1.0.0.RELEASE</version>
+			<version>${spring.data.mongodb.version}</version>
 		</dependency>
 
 
@@ -35,17 +38,24 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.2</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>3.0.5.RELEASE</version>
+			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency>
 
+		    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.1.1</version>
+      <scope>compile</scope>
+    </dependency>
+		
 	</dependencies>
 
 	<build>
@@ -62,4 +72,23 @@
 		</plugins>
 	</build>
 
+	<organization>
+		<name>codecentric AG</name>
+		<url>http://www.codecentric.de</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<name>Tobias Trelle</name>
+			<email>tobias.trelle@codecentric.de</email>
+		</developer>
+	</developers>
+
+	<repositories>
+		<repository>
+			<id>spring-snapshot</id>
+			<name>Spring Maven SNAPSHOT Repository</name>
+			<url>http://repo.springsource.org/libs-snapshot</url>
+		</repository>
+	</repositories>
 </project>
