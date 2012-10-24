@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.mongodb.core.CollectionOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -29,6 +30,10 @@ public class MongoDBRepoTest {
 	 @Autowired MongoTemplate template;
 	 
 	 @Before public void setUp() {
+		 
+		 template.dropCollection("user");
+		 template.createCollection("user");
+		 
 		 repo.save(new User("root", "Superuser"));
 		 for ( int i = 0; i < 6; i++ ) {
 			 repo.save( new User( String.format("user%02d", i), "User " + i ) );
