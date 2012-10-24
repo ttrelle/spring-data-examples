@@ -45,7 +45,7 @@ public class CappedCollectionManipulationTest {
 	 }
 	 
 	 @Test
-	 public void deos_not_delete_from_capped_collection() {
+	 public void does_not_delete_from_capped_collection() {
 		 // given
 		 for ( int i = 0; i< 5; i++ ) {
 			 repo.save(new User("user"+i, "Herr User Nr. " +i));
