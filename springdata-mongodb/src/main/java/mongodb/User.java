@@ -12,7 +12,7 @@ public class User {
 	@Id 
 	private String id;
 	
-	@Indexed
+	@Indexed(unique=true)
 	private String fullName;
 	
 	private Date lastLogin;
