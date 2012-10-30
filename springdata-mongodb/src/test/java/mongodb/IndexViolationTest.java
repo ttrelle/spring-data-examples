@@ -40,7 +40,7 @@ public class IndexViolationTest {
 	 @Test
 	 public void does_not_detect_index_violation_on_id() {
 		 // given
-		 repo.save( new User("0", "User 0") );
+		 repo.save( new User("0", "User 0") ); // 1st param = _id field, 2nd = unique secondary index
 		 
 		 // when
 		 repo.save( new User("0", "User 1") );
