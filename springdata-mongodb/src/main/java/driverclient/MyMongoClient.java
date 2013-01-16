@@ -51,15 +51,17 @@ public class MyMongoClient {
 		// get collection names
 		Set<String> colls = db.getCollectionNames();
 		for (String s : colls) {
-		    out(s);
+		    println(s);
 		}
 		//getLastError(db);
 		
 		DBCollection collection = db.getCollection("foo");
 		
-		//remove(collection);
-		bsonize();
+		insert(collection);
+		find(collection);
 		
+		// remove(collection);
+		// bsonize();
 	}
 	
 	private static void getLastError(DB db) {
@@ -87,7 +89,7 @@ public class MyMongoClient {
 	}
 	
 	
-	private static void insert(DB db, DBCollection collection) {
+	private static void insert(DBCollection collection) {
 		// Document speichern
 		DBObject doc = new BasicDBObject();
 		doc.put("date", new Date());
@@ -96,7 +98,20 @@ public class MyMongoClient {
 		collection.insert(doc);
 	}
 	
-	private static void query(DB db, DBCollection collection) {
+	private static void find(DBCollection collection) {
+		DBObject document;
+		DBCursor cursor;
+		
+		// alle Dokumente
+		cursor = collection.find();
+
+		while ( cursor.hasNext() ) {
+			document = cursor.next();
+			println(document);
+		}
+	}
+
+	private static void find(DBCollection collection, DBObject query) {
 		DBObject document;
 		DBCursor cursor;
 		
@@ -104,25 +119,29 @@ public class MyMongoClient {
 		cursor = collection.find();
 		
 		// Dokumente mit {i: 42}
-		cursor = collection.find( new BasicDBObject("i", 42) ); 
+		cursor = collection.find( query ); 
 		
-		document = cursor.next();
+		while ( cursor.hasNext() ) {
+			document = cursor.next();
+			println(document);
+		}
 	}
-
+	
+	
 	private static void bsonize() throws UnsupportedEncodingException {
 		final String key = "hello";
 		final String value = "MongoDB";
 		
 		bsonize( new BasicDBObject(key, value) );
-		out( toString(key.getBytes("UTF-8")) );
-		out( toString(value.getBytes("UTF-8")) );
+		println( toString(key.getBytes("UTF-8")) );
+		println( toString(value.getBytes("UTF-8")) );
 	}
 
 	
 	private static void bsonize(DBObject doc) {
 		final byte[] buff = BSON.encode(doc);
 		
-		out( toString(buff) );
+		println( toString(buff) );
 	}
 	
 	private static String toString(byte[] buff) {
@@ -143,7 +162,7 @@ public class MyMongoClient {
 		return sb.toString();
 	}
 	
-	private static final void out(Object o) {
+	private static final void println(Object o) {
 		System.out.println(o);
 	}
 	
