@@ -39,7 +39,7 @@ public class OrderRepositoryTest {
 		Assert.assertEquals(1, orders.size());
 	}
 
-	@Test public void shouldFindByPriceGreaterThan() {
+	@Test public void shouldFindByAnnotatedQuery() {
 		// given
 		Order order = new Order("Tobias Trelle, gold customer");
 		List<Item> items = new ArrayList<Item>();
@@ -49,11 +49,11 @@ public class OrderRepositoryTest {
 		repo.save(order);
 		
 		// when
-		List<Order> orders = repo.findByItemsPriceGreaterThan(100.0);
+		List<Order> orders = repo.findWithQuery(2);
 		
 		// then
 		Assert.assertNotNull(orders);
-		Assert.assertEquals(0, orders.size());
+		Assert.assertEquals(1, orders.size());
 	}
 	
 }
