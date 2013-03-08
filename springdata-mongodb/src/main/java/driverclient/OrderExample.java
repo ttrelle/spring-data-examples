@@ -36,7 +36,7 @@ public class OrderExample {
 		DBCollection collection = db.getCollection("order");
 		
 		insert(collection);
-		find(collection);
+		find(mongo);
 	}
 	
 	private static void insert(DBCollection collection) {
@@ -64,12 +64,15 @@ public class OrderExample {
 		collection.insert(order);
 	}
 	
-	private static void find(DBCollection collection) {
+	private static void find(Mongo mongo) {
+		DB db = mongo.getDB("test");
+		DBCollection collection = db.getCollection("order");
+		DBObject query;
 		DBObject document;
 		DBCursor cursor;
 		
-		// alle Dokumente
-		cursor = collection.find();
+		query = new BasicDBObject("items.quantity", 2);
+		cursor = collection.find(query);
 
 		while ( cursor.hasNext() ) {
 			document = cursor.next();
