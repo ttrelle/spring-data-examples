@@ -11,4 +11,7 @@ public interface OrderRepository extends MongoRepository<Order, String> {
 	
 	@Query("{ \"items.quantity\": ?0 }")
 	List<Order> findWithQuery(int quantity);
+	
+	@Query( value = "{ custInfo: ?0 }", fields = "{_id:0, items:1}")
+	List<Order> findOnlyItems(String name);
 }
