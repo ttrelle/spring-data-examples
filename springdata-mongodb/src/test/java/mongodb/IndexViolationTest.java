@@ -4,9 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.index.Index;
-import org.springframework.data.mongodb.core.query.Order;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -34,7 +34,7 @@ public class IndexViolationTest {
 	 public void setUp() {
 		 template.dropCollection(COLLECTION_NAME);
 		 template.createCollection(COLLECTION_NAME);
-		 template.indexOps(COLLECTION_NAME).ensureIndex(new Index().on("fullName", Order.ASCENDING).unique());
+		 template.indexOps(COLLECTION_NAME).ensureIndex(new Index().on("fullName", Direction.ASC).unique());
 	 }
 	 
 	 @Test
