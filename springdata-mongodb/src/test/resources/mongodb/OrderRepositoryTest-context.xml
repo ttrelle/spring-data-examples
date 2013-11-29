@@ -23,5 +23,6 @@
 <!-- Package w/ automagic repositories -->
 <mongo:repositories base-package="mongodb" />
 
+<bean class="mongodb.UuidBeforeSaveListener" />
 	
 </beans>
