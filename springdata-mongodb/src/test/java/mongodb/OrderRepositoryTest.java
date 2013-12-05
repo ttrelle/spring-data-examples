@@ -73,6 +73,8 @@ public class OrderRepositoryTest {
 		assertEquals(1, orders.size());
 		order = orders.get(0);
 		assertNull(order.getId());
+		assertNull(order.getCustomerInfo());
+		assertNull(order.getDate());
 		
 		items = order.getItems();
 		assertNotNull(items);

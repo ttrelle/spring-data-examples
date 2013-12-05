@@ -23,9 +23,14 @@ public class Order {
 	public Order(String customerInfo) {
 		super();
 		this.customerInfo = customerInfo;
-		this.date = new Date();
 	}
 
+	public Order(String id, String customerInfo) {
+		this(customerInfo);
+		this.id = id;
+	}
+	
+	
 	public String getId() {
 		return id;
 	}
