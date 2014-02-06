@@ -10,6 +10,9 @@ This projects holds the Java source examples for my blog post series on the Spri
 * [Part 2: Spring Data JPA](http://blog.codecentric.de/en/2012/01/spring-data-jpa/)
 * [Part 1: Spring Data Commons](http://blog.codecentric.de/en/2011/12/spring-data-commons/)
 
+## Build Status @ Travis CI ##
+[![Build Status](https://travis-ci.org/ttrelle/spring-data-examples.png?branch=master)](https://travis-ci.org/ttrelle/spring-data-examples)
+
 ## Usage
 
 The projects are using a Maven based build. To run the tests on the command line use
