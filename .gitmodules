@@ -1,0 +1,3 @@
+[submodules]
+	path = springdata-mongodb
+	url = git://github.com/ttrelle/springdata-mongodb-examples
