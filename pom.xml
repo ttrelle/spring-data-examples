@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>de.codecentric.blog</groupId>
+	<artifactId>springdata-exmaples</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>Spring Data Examples</name>
+
+	<modules>
+		<module>springdata-mongodb</module>
+	</modules>
+
+	<organization>
+		<name>codecentric AG</name>
+		<url>http://www.codecentric.de</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<name>Tobias Trelle</name>
+			<email>tobias.trelle@codecentric.de</email>
+		</developer>
+	</developers>
+
+</project>
