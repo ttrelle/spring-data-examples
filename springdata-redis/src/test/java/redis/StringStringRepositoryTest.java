@@ -1,6 +1,7 @@
 package redis;
 
-import junit.framework.Assert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,8 +25,8 @@ public class StringStringRepositoryTest {
 	public void shouldFindValue() {
 		String value = repo.getValue("foo");
 		
-		Assert.assertNotNull("Value is <null>", value);
-		Assert.assertEquals( "Value mismatch" , "bar", value);
+		assertNotNull("Value is <null>", value);
+		assertEquals( "Value mismatch" , "bar", value);
 	}
 	
 }

@@ -1,6 +1,7 @@
 package redis;
 
-import junit.framework.Assert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,9 +25,9 @@ public class UserRepositoryTest {
 	public void shouldFindValue() {
 		User user = repo.get("root");
 		
-		Assert.assertNotNull("Value is <null>", user);
-		Assert.assertEquals( "login mismatch" , "root", user.getLogin());
-		Assert.assertEquals( "login mismatch" , "Superuser", user.getFullName());
+		assertNotNull("Value is <null>", user);
+		assertEquals( "login mismatch" , "root", user.getLogin());
+		assertEquals( "login mismatch" , "Superuser", user.getFullName());
 	}
 	
 }
