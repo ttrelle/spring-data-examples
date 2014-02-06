@@ -4,11 +4,11 @@
 
 	<groupId>de.codecentric.blog</groupId>
 	<artifactId>springdata-redis</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>springdata redis</name>
-	<url>http://maven.apache.org</url>
+	<name>Spring Data Redis Examples</name>
+	<url>https://blog.codecentric.de/en/2012/04/spring-data-redis/</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,9 +19,13 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-redis</artifactId>
-			<version>1.0.0.RELEASE</version>
+			<version>1.1.0.RELEASE</version>
 		</dependency>
-
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>2.0.0</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
@@ -42,14 +46,14 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.2</version>
+			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>3.1.0.RELEASE</version>
+			<version>3.1.4.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -68,5 +72,17 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<organization>
+		<name>codecentric AG</name>
+		<url>http://www.codecentric.de</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<name>Tobias Trelle</name>
+			<email>tobias.trelle@codecentric.de</email>
+		</developer>
+	</developers>
 
 </project>
