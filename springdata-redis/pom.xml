@@ -28,20 +28,12 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-core-lgpl</artifactId>
-			<version>1.9.5</version>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.6.6</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-lgpl</artifactId>
-			<version>1.9.5</version>
-		</dependency>
-
-		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-simple</artifactId> 
-			<version>1.6.3</version> </dependency> <dependency> <groupId>cglib</groupId> 
-			<artifactId>cglib-nodep</artifactId> <version>2.2</version> </dependency> -->
+		<!-- ############### Testing ################################## -->
 
 		<dependency>
 			<groupId>junit</groupId>
