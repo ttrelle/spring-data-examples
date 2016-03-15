@@ -2,42 +2,68 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>de.codecentric.blog</groupId>
-	<artifactId>springdata-neo4j</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<groupId>de.codecentric</groupId>
+	<artifactId>springdata-neo4j-examples</artifactId>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name>springdata neo4j</name>
+	<name>Spring Data Neo4j Examples</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<neo4j.version>2.2.5</neo4j.version>
 	</properties>
 
 	<dependencies>
 
-		<!-- <dependency> <groupId>org.springframework.data</groupId> <artifactId>spring-data-neo4j</artifactId> 
-			<version>2.2.1.RELEASE</version> </dependency> -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-neo4j-rest</artifactId>
-			<version>2.2.1.RELEASE</version>
+			<artifactId>spring-data-neo4j</artifactId>
+			<version>4.0.0.RELEASE</version>
 		</dependency>
-		<!-- <dependency> <groupId>org.neo4j</groupId> <artifactId>neo4j-cypher</artifactId> 
-			<version>1.9.M04</version> </dependency> -->
 
-
-		<!-- <dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-simple</artifactId> 
-			<version>1.6.3</version> </dependency> <dependency> <groupId>cglib</groupId> 
-			<artifactId>cglib-nodep</artifactId> <version>2.2</version> </dependency> -->
-
+		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-neo4j</artifactId>
+			<version>4.0.0.RELEASE</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.neo4j</groupId>
+			<artifactId>neo4j-kernel</artifactId>
+			<version>${neo4j.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.neo4j.test</groupId>
+			<artifactId>neo4j-harness</artifactId>
+			<version>${neo4j.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.neo4j.app</groupId>
+			<artifactId>neo4j-server</artifactId>
+			<version>${neo4j.version}</version>
+			<type>test-jar</type>			
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.neo4j</groupId>
+			<artifactId>neo4j-ogm</artifactId>
+			<version>1.1.2</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
@@ -53,7 +79,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>3.1.4.RELEASE</version>
+			<version>4.1.9.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -66,8 +92,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 		</plugins>
