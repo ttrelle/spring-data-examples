@@ -3,19 +3,19 @@ package driverclient;
 import java.io.UnsupportedEncodingException;
 import java.net.UnknownHostException;
 import java.util.Date;
-import java.util.Set;
 
 import org.bson.BSON;
+import org.bson.Document;
+import org.bson.conversions.Bson;
 
 import com.mongodb.BasicDBObject;
-import com.mongodb.CommandResult;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
-import com.mongodb.Mongo;
+import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
-import com.mongodb.WriteConcern;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.MongoIterable;
 
 /**
  * Simple MongoDB client based on the MongoDB Java driver API.
@@ -30,10 +30,10 @@ public class MyMongoClient {
 	 * @throws UnsupportedEncodingException 
 	 */
 	public static void main(String[] argv) throws UnknownHostException, MongoException, UnsupportedEncodingException {
-		Mongo mongo;
+		MongoClient mongo;
 		
 		// Default: localhost:27017
-		mongo = new Mongo();
+		mongo = new MongoClient();
 		
 //		// Sharding: mongos server
 //		mongo = new Mongo("mongo-1", 4711);
@@ -46,16 +46,15 @@ public class MyMongoClient {
 //				));
 		
 		
-		DB db = mongo.getDB("test");
+		MongoDatabase db = mongo.getDatabase("test");
 		
 		// get collection names
-		Set<String> colls = db.getCollectionNames();
+		MongoIterable<String> colls = db.listCollectionNames();
 		for (String s : colls) {
 		    println(s);
 		}
-		//getLastError(db);
 		
-		DBCollection collection = db.getCollection("foo");
+		MongoCollection<Document> collection = db.getCollection("foo");
 		
 		insert(collection);
 		find(collection);
@@ -64,56 +63,41 @@ public class MyMongoClient {
 		// bsonize();
 	}
 	
-	private static void getLastError(DB db) {
-		CommandResult cr;
-		
-		cr = db.getLastError(WriteConcern.NORMAL);
-		System.out.println(cr);
-	}
-	
-	private static void update(DBCollection collection) {
-		
-	}
-
-	private static void remove(DBCollection collection) {
+	private static void remove(MongoCollection<Document> collection) {
 		// alle Dokuemente mit {i: 42}
-		DBObject criteria 
-			= new BasicDBObject("i", 42);
-		collection.remove(criteria);
+		Bson criteria = new BasicDBObject("i", 42);
+		collection.deleteOne(criteria);
 		
 		// alle Dokumente
-		collection.remove( new BasicDBObject() );
+		collection.deleteMany( new BasicDBObject() );
 		
 		// schneller:
 		collection.drop();
 	}
 	
 	
-	private static void insert(DBCollection collection) {
+	private static void insert(MongoCollection<Document> collection) {
 		// Document speichern
-		DBObject doc = new BasicDBObject();
+		Document doc = new Document();
 		doc.put("date", new Date());
 		doc.put("i", 42);
 		
-		collection.insert(doc);
+		collection.insertOne(doc);
 	}
 	
-	private static void find(DBCollection collection) {
-		DBObject document;
-		DBCursor cursor;
+	private static void find(MongoCollection<Document> collection) {
+		FindIterable<Document> cursor;
 		
 		// alle Dokumente
 		cursor = collection.find();
 
-		while ( cursor.hasNext() ) {
-			document = cursor.next();
+		for ( Document document: cursor ) {
 			println(document);
 		}
 	}
 
-	private static void find(DBCollection collection, DBObject query) {
-		DBObject document;
-		DBCursor cursor;
+	private static void find(MongoCollection<Document> collection, Bson query) {
+		FindIterable<Document> cursor;
 		
 		// alle Dokumente
 		cursor = collection.find();
@@ -121,8 +105,7 @@ public class MyMongoClient {
 		// Dokumente mit {i: 42}
 		cursor = collection.find( query ); 
 		
-		while ( cursor.hasNext() ) {
-			document = cursor.next();
+		for ( Document document: cursor ) {
 			println(document);
 		}
 	}

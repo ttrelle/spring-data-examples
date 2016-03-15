@@ -4,3 +4,5 @@
 
 .classpath
 .project
+/.externalToolBuilders/
+/maven-eclipse.xml

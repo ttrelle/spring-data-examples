@@ -1,20 +1,22 @@
 package mongodb;
 
-import java.util.List;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
 
-import junit.framework.Assert;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.Box;
+import org.springframework.data.geo.Circle;
+import org.springframework.data.geo.Distance;
+import org.springframework.data.geo.Metrics;
+import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.geo.Box;
-import org.springframework.data.mongodb.core.geo.Circle;
-import org.springframework.data.mongodb.core.geo.Distance;
-import org.springframework.data.mongodb.core.geo.Metrics;
-import org.springframework.data.mongodb.core.geo.Point;
 import org.springframework.data.mongodb.core.index.GeospatialIndex;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -85,8 +87,7 @@ public class MongoDBGeoSpatialTest {
 
 	@Test public void shouldFindAroundOrigin() {
 		// when
-		List<Location> locations = repo.findByPositionWithin(new Circle(0, 0,
-				0.75));
+		List<Location> locations = repo.findByPositionWithin(new Circle(0, 0, 0.75));
 
 		// then
 		assertLocations(locations, "A", "C", "D");
@@ -107,16 +108,15 @@ public class MongoDBGeoSpatialTest {
 	}
 
 	private static void assertLocations(List<Location> locations, String... ids) {
-		Assert.assertNotNull(locations);
+		assertThat( locations, notNullValue() );
 		out("-----------------------------");
 		for (Location l : locations) {
 			out(l);
 		}
-		Assert.assertEquals("Mismatch location count", ids.length,
-				locations.size());
+		assertThat("Mismatch location count", ids.length, is(locations.size()));
 		for (String id : ids) {
-			Assert.assertTrue("Location " + id + " not found",
-					locations.contains(new Location(id, 0, 0)));
+			assertThat("Location " + id + " not found",
+					locations.contains(new Location(id, 0, 0)), is(true));
 		}
 	}
 

@@ -1,7 +1,8 @@
 package mongodb;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.newAggregation;
 import static org.springframework.data.mongodb.core.aggregation.Aggregation.project;
 
@@ -18,6 +19,11 @@ import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * Test cases for aggregations.
+ * 
+ * @author Tobias Trelle
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = OrderRepositoryConfig.class)
 public class OrderSubListTest {
@@ -45,15 +51,14 @@ public class OrderSubListTest {
 				);
 		AggregationResults<Order> result =  template.aggregate(agg, Order.class, Order.class);
 		
-		
 		// then
-		assertNotNull(result);
+		assertThat(result, notNullValue());
 		List<Order> orders = result.getMappedResults();
-		assertNotNull(orders);
-		assertEquals(1, orders.size());
+		assertThat(orders, notNullValue());
+		assertThat(orders.size(), is(1));
 		items = orders.get(0).getItems();
-		assertNotNull(items);
-		assertEquals( 2, items.size() );
+		assertThat(items, notNullValue());
+		assertThat(items.size(), is(2));
 	}
 
 	@Test public void projection_by_query() {
@@ -70,17 +75,15 @@ public class OrderSubListTest {
 				project("items").andExclude("_id")
 				);
 		AggregationResults<Order> result =  template.aggregate(agg, Order.class, Order.class);
-		
-		
+	
 		// then
-		assertNotNull(result);
+		assertThat(result, notNullValue());
 		List<Order> orders = result.getMappedResults();
-		assertNotNull(orders);
-		assertEquals(1, orders.size());
+		assertThat(orders, notNullValue());
+		assertThat(orders.size(), is(1));
 		items = orders.get(0).getItems();
-		assertNotNull(items);
-		assertEquals( 2, items.size() );
+		assertThat(items, notNullValue());
+		assertThat(items.size(), is(2));
 	}
-
 	
 }

@@ -1,8 +1,10 @@
 package mongodb;
 
-import java.util.List;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
 
-import junit.framework.Assert;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -54,7 +56,7 @@ public class MongoDBRepoTest {
 		 List<User> users;
 		 
 		 // when
-		 users = repo.findByFullNameLike("^User", null);
+		 users = repo.findByFullNameLike("User", null);
 		 
 		 // then
 		 assertUserCount(users, 6);
@@ -77,12 +79,12 @@ public class MongoDBRepoTest {
 	 
 	 private static void assertUserByFullName(List<User> users, String fullName)  {
 		 assertUserCount(users, 1);
-		 Assert.assertEquals( "Mismatch full name" , fullName, users.get(0).getFullName());
+		 assertThat( "Mismatch full name", users.get(0).getFullName(), is(fullName));
 	 }
 
 	 private static void assertUserCount(List<User> users, int expected) {
-		 Assert.assertNotNull( users );
-		 Assert.assertEquals( "Mismatch user count" , expected, users.size());
+		 assertThat( users, notNullValue() );
+		 assertThat( "Mismatch user count", users.size(), is(expected));
 	 }
 	 
 }

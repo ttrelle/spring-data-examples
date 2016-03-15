@@ -1,6 +1,6 @@
 package mongodb;
 
-import org.springframework.data.mongodb.core.geo.Point;
+import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -12,9 +12,9 @@ public class PointOfInterest {
 	private String tags;
 	
 	@Field("desc") private String description;
-	Adresse adresse;
+	private Adresse adresse;
 	
-	Point location;
+	private Point location;
 	
 	public String getTyp() {
 		return typ;

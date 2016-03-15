@@ -1,9 +1,12 @@
 package mongodb;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertThat;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import static junit.framework.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+/**
+ * Test cases for the {@link OrderRepository}.
+ * 
+ * @author Tobias Trelle
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = OrderRepositoryConfig.class)
 public class OrderRepositoryTest {
@@ -35,8 +43,8 @@ public class OrderRepositoryTest {
 		List<Order> orders = repo.findByItemsQuantity(2);
 		
 		// then
-		assertNotNull(orders);
-		assertEquals(1, orders.size());
+		assertThat(orders, notNullValue());
+		assertThat(orders.size(), is(1));
 	}
 
 	@Test public void shouldFindByAnnotatedQuery() {
@@ -52,8 +60,8 @@ public class OrderRepositoryTest {
 		List<Order> orders = repo.findWithQuery(2);
 		
 		// then
-		assertNotNull(orders);
-		assertEquals(1, orders.size());
+		assertThat(orders, notNullValue());
+		assertThat(orders.size(), is(1));
 	}
 
 	@Test public void use_field_projection() {
@@ -69,22 +77,20 @@ public class OrderRepositoryTest {
 		List<Order> orders = repo.findOnlyItems("Tobias Trelle, gold customer");
 		
 		// then
-		assertNotNull(orders);
-		assertEquals(1, orders.size());
+		assertThat(orders, notNullValue());
+		assertThat(orders.size(), is(1));
 		order = orders.get(0);
-		assertNull(order.getId());
-		assertNull(order.getCustomerInfo());
-		assertNull(order.getDate());
+		assertThat(order.getId(), nullValue());
+		assertThat(order.getCustomerInfo(), nullValue());
+		assertThat(order.getDate(), nullValue());
 		
 		items = order.getItems();
-		assertNotNull(items);
-		assertEquals(2, items.size());
+		assertThat(items, notNullValue());
+		assertThat(items.size(), is(2));
 		Item item = items.get(0);
-		assertNotNull( item.getDescription() );
-		assertNotNull( item.getPrice() );
-		assertNotNull( item.getQuantity() );
-		
+		assertThat( item.getDescription(), notNullValue());
+		assertThat( item.getPrice(), notNullValue());
+		assertThat( item.getQuantity(), notNullValue());
 	}
-	
 	
 }
