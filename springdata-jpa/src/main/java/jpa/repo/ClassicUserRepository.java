@@ -1,9 +1,11 @@
-package jpa;
+package jpa.repo;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import jpa.domain.User;
 
 import org.springframework.stereotype.Repository;
 

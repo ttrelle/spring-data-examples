@@ -1,7 +1,10 @@
-package jpa;
+package jpa.repo;
 
 import java.util.List;
 
+import jpa.domain.User;
+import jpa.repo.ClassicUserRepository;
+import jpa.repo.UserRepository;
 import junit.framework.Assert;
 
 import org.junit.Before;

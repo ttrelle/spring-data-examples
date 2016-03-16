@@ -1,4 +1,4 @@
-package jpa;
+package jpa.domain;
 
 import java.util.Date;
 

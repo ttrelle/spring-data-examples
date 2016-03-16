@@ -22,28 +22,12 @@
         http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
         ">
 
-	<!-- JNDI DS Example 
-	<jee:jndi-lookup id="ds2" jndi-name="jdbc/monitoring" />
-	-->
-
 	<jdbc:embedded-database id="dataSource" type="HSQL" />
 
-	<!-- 	
-	<jpa:repositories base-package="jparepo" query-lookup-strategy="use-declared-query" />
-	-->
-	<jpa:repositories base-package="jpa" query-lookup-strategy="create-if-not-found" />
+	<!-- Scan fo SD repos -->
+	<jpa:repositories base-package="jpa.repo" query-lookup-strategy="create-if-not-found" />
 
-
-	<!-- 
-    <bean id="dataSource"
-        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="username" value="root" />
-        <property name="password" value="xxxxxxx" />
-        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost/training" />
-    </bean>
-    -->
- 
+ 	<!-- EM factory -->
     <bean id="emf1"
         class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <!--
@@ -51,7 +35,7 @@
         -->
         <property name="dataSource" ref="dataSource" />
         <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.OpenJpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
                 <property name="generateDdl" value="true" />
             </bean>
         </property>

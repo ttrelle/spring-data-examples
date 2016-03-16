@@ -1,6 +1,8 @@
-package jpa;
+package jpa.repo;
 
 import java.util.List;
+
+import jpa.domain.User;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
