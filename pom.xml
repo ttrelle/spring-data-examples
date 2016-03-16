@@ -13,7 +13,8 @@
 		<module>springdata-mongodb</module>
 		<module>springdata-redis</module>
 		<module>springdata-neo4j</module>
-	</modules>
+		<module>springdata-jpa</module>
+</modules>
 
 	<organization>
 		<name>codecentric AG</name>
