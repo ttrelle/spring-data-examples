@@ -25,6 +25,5 @@ public class ClassicUserRepository {
 	 private EntityManager getEntityManger() {
 		 return em;
 	 }
-	 
 	
 }

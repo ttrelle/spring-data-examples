@@ -24,15 +24,12 @@
 
 	<jdbc:embedded-database id="dataSource" type="HSQL" />
 
-	<!-- Scan fo SD repos -->
+	<!-- Scan for SD repos -->
 	<jpa:repositories base-package="jpa.repo" query-lookup-strategy="create-if-not-found" />
 
  	<!-- EM factory -->
-    <bean id="emf1"
+    <bean id="entityManagerFactory"
         class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <!--
-        <property name="persistenceUnitName" value="pu1" />
-        -->
         <property name="dataSource" ref="dataSource" />
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
@@ -41,14 +38,12 @@
         </property>
     </bean>
  
-    <context:component-scan base-package="jpa" />
+    <context:component-scan base-package="jpa.repo" />
     
     <context:annotation-config />
 
 	<!--  TX Manager --> 
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-    	<property name="entityManagerFactory"  ref="emf1" />
-    </bean>
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" />
     <tx:annotation-driven />
 	
 </beans>
