@@ -16,7 +16,7 @@ public class ClassicUserRepository {
 
 	 public List<User> findByFullName(String fullName) {
 		 return getEntityManger()
-				 .createNamedQuery("User.classisQuery", User.class)
+				 .createNamedQuery("User.classicQuery", User.class)
 				 .setParameter("fullName", fullName)
 				 .getResultList();
 	 }
