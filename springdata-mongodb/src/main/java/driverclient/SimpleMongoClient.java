@@ -2,6 +2,7 @@ package driverclient;
 
 import java.io.UnsupportedEncodingException;
 import java.net.UnknownHostException;
+import java.util.Arrays;
 import java.util.Date;
 
 import org.bson.BSON;
@@ -11,7 +12,9 @@ import org.bson.conversions.Bson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoCredential;
 import com.mongodb.MongoException;
+import com.mongodb.ServerAddress;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -20,7 +23,7 @@ import com.mongodb.client.MongoIterable;
 /**
  * Simple MongoDB client based on the MongoDB Java driver API.
  */
-public class MyMongoClient {
+public class SimpleMongoClient {
 
 	/**
 	 * CLI call.
@@ -30,37 +33,49 @@ public class MyMongoClient {
 	 * @throws UnsupportedEncodingException 
 	 */
 	public static void main(String[] argv) throws UnknownHostException, MongoException, UnsupportedEncodingException {
-		MongoClient mongo;
+		MongoClient mongo = null;
 		
-		// Default: localhost:27017
-		mongo = new MongoClient();
-		
-//		// Sharding: mongos server
-//		mongo = new Mongo("mongo-1", 4711);
-//		
-//		// Replica set
-//		mongo = new Mongo(Arrays.asList(
-//				new ServerAddress("replicant01", 10001),
-//				new ServerAddress("replicant02", 10002),
-//				new ServerAddress("replicant03", 10003)
-//				));
-		
-		
-		MongoDatabase db = mongo.getDatabase("test");
-		
-		// get collection names
-		MongoIterable<String> colls = db.listCollectionNames();
-		for (String s : colls) {
-		    println(s);
-		}
-		
-		MongoCollection<Document> collection = db.getCollection("foo");
-		
-		insert(collection);
-		find(collection);
-		
-		// remove(collection);
-		// bsonize();
+		try {
+			// Default: localhost:27017
+			mongo = new MongoClient();
+			
+			// Sharding: mongos server
+			// mongo = new MongoClient("mongos-1", 4711);
+			
+			// Replica set
+//			mongo = new MongoClient(
+//				Arrays.asList(
+//					new ServerAddress("localhost", 27001),
+//					new ServerAddress("localhost", 27002),
+//					new ServerAddress("localhost", 27003)
+//				),
+//				Arrays.asList(
+//						MongoCredential.createCredential("test1", "test", "test1".toCharArray())
+//				)
+//			);
+			
+			// use database "test"
+			MongoDatabase db = mongo.getDatabase("test");
+			
+			// get collection names
+			MongoIterable<String> colls = db.listCollectionNames();
+			for (String s : colls) {
+			    println(s);
+			}
+			
+			// use collection "foo"
+			MongoCollection<Document> collection = db.getCollection("foo");
+			
+			insert(collection);
+			find(collection);
+			
+			// remove(collection);
+			// bsonize();
+			} finally {
+				if (mongo != null) {
+					mongo.close();
+				}
+			}
 	}
 	
 	private static void remove(MongoCollection<Document> collection) {
