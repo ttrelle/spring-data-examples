@@ -20,7 +20,7 @@ import com.mongodb.client.model.WriteModel;
 
 public class ReplicaSetTimeout {
 
-	private static final WriteConcern WRITE_CONCERN = new WriteConcern()
+	private static final WriteConcern WRITE_CONCERN = WriteConcern.ACKNOWLEDGED
 			.withW("majority")
 			.withWTimeout(200, TimeUnit.MILLISECONDS)
 			.withJournal(true)
@@ -41,10 +41,8 @@ public class ReplicaSetTimeout {
 				new ServerAddress("localhost", 27003)));
 
 		try {
-			
 			MongoDatabase db = mongo.getDatabase("test");
-			MongoCollection<Document> collection = db.getCollection("foo");
-			collection = collection.withWriteConcern(WRITE_CONCERN);
+			MongoCollection<Document> collection = db.getCollection("foo").withWriteConcern(WRITE_CONCERN);
 			System.out.println("WriteConcern: " + collection.getWriteConcern());
 						
 			// remove
