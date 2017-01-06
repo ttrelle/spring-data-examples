@@ -12,9 +12,9 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.data.mongodb.version>1.9.2.RELEASE</spring.data.mongodb.version>
+		<spring.data.mongodb.version>1.9.6.RELEASE</spring.data.mongodb.version>
 		<mongo.driver.version>3.4.1</mongo.driver.version>
-		<spring.version>4.2.6.RELEASE</spring.version>
+		<spring.version>4.2.9.RELEASE</spring.version>
 		<junit.version>4.12</junit.version>
 	</properties>
 
@@ -30,11 +30,6 @@
 			<artifactId>spring-data-mongodb</artifactId>
 			<version>${spring.data.mongodb.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib-nodep</artifactId>
-			<version>2.2</version>
-		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
@@ -42,25 +37,15 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>commons-logging</groupId>
-			<artifactId>commons-logging</artifactId>
-			<version>1.1.1</version>
-			<scope>compile</scope>
-		</dependency>
-
 	</dependencies>
 
 	<build>
-
 		<resources>
 			<resource>
 				<directory>src/misc/java</directory>
