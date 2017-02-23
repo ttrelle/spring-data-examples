@@ -2,7 +2,6 @@ package driverclient;
 
 import java.io.UnsupportedEncodingException;
 import java.net.UnknownHostException;
-import java.util.Arrays;
 import java.util.Date;
 
 import org.bson.BSON;
@@ -12,9 +11,7 @@ import org.bson.conversions.Bson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
-import com.mongodb.MongoCredential;
 import com.mongodb.MongoException;
-import com.mongodb.ServerAddress;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
@@ -44,15 +41,8 @@ public class SimpleMongoClient {
 			
 			// Replica set
 //			mongo = new MongoClient(
-//				Arrays.asList(
-//					new ServerAddress("localhost", 27001),
-//					new ServerAddress("localhost", 27002),
-//					new ServerAddress("localhost", 27003)
-//				),
-//				Arrays.asList(
-//						MongoCredential.createCredential("test1", "test", "test1".toCharArray())
-//				)
-//			);
+//		s			new MongoClientURI("mongodb://localhost:27001,localhost:27002,localhost:27003/replicaSet=demo-dev")
+//					);
 			
 			// use database "test"
 			MongoDatabase db = mongo.getDatabase("test");
