@@ -14,7 +14,8 @@
 		<module>springdata-redis</module>
 		<module>springdata-neo4j</module>
 		<module>springdata-jpa</module>
-</modules>
+		<module>spring-boot-mongo</module>
+	</modules>
 
 	<organization>
 		<name>codecentric AG</name>
