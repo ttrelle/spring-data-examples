@@ -1,0 +1,28 @@
+
+version: '3'
+
+networks:
+  servicenet:
+    driver: bridge
+    
+services:
+
+  boot-rest-mongo:
+    image: mongoboot/mongoboot
+    ports:
+      - "8080:8080"
+    networks:
+      - servicenet
+    depends_on:
+      - mongo
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/test
+
+  mongo:
+    image: mongo:latest
+    ports: 
+      - "27017:27017"
+    networks:
+      - servicenet
+    volumes:
+      - /data/db:/data/db
