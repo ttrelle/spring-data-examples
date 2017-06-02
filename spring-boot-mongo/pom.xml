@@ -8,7 +8,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>spring-boot-mongo</name>
+	<name>SpringBoot MongoDB REST</name>
 	<description>Demo project for Spring Boot MongoDB</description>
 
 	<parent>
@@ -56,36 +56,33 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			
-                <plugin>
-                    <groupId>com.spotify</groupId>
-                    <artifactId>docker-maven-plugin</artifactId>
-                    <version>${docker-maven-plugin.version}</version>
-
-                    <configuration>
-                        <imageName>mongoboot/${project.artifactId}</imageName>
-                        <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
-                        <resources>
-                            <resource>
-                                <targetPath>/</targetPath>
-                                <directory>${project.build.directory}</directory>
-                                <include>${project.build.finalName}.jar</include>
-                            </resource>
-                        </resources>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>build-image</id>
-                            <phase>package</phase>
-                            <goals>
-                                <goal>build</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>			
-			
+			<!--
+	        <plugin>
+	            <groupId>com.spotify</groupId>
+	            <artifactId>docker-maven-plugin</artifactId>
+	            <version>${docker-maven-plugin.version}</version>	
+	            <configuration>
+	                <imageName>mongoboot/${project.artifactId}</imageName>
+	                <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+	                <resources>
+	                    <resource>
+	                        <targetPath>/</targetPath>
+	                        <directory>${project.build.directory}</directory>
+	                        <include>${project.build.finalName}.jar</include>
+	                    </resource>
+	                </resources>
+	            </configuration>
+	            <executions>
+	                <execution>
+	                    <id>build-image</id>
+	                    <phase>package</phase>
+	                    <goals>
+	                        <goal>build</goal>
+	                    </goals>
+	                </execution>
+	            </executions>
+	        </plugin>	
+	        -->		
 		</plugins>
 	</build>
-
-
 </project>
