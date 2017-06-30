@@ -18,7 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author Tobias Trelle
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration
+@ContextConfiguration(classes=LocalhostMongoConfiguration.class)
 public class IndexViolationTest {
 
 	private static final String COLLECTION_NAME = "user";
@@ -44,17 +44,6 @@ public class IndexViolationTest {
 		 
 		 // when
 		 repo.save( new User("0", "User 1") );
-		 
-		 // then
-	 }
-
-	 @Test
-	 public void does_not_detect_index_violation_on_fullName() {
-		 // given
-		 repo.save( new User("100", "User 100") );
-		 
-		 // when
-		 repo.save( new User("101", "User 100") );
 		 
 		 // then
 	 }

@@ -21,7 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author Tobias Trelle
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = OrderRepositoryConfig.class)
+@ContextConfiguration(classes=LocalhostMongoConfiguration.class)
 public class OrderRepositoryTest {
 
 	@Autowired OrderRepository repo;	

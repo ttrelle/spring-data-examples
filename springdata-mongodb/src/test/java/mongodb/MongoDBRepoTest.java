@@ -23,7 +23,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author <a href="http://blog.codecentric.de/en/author/tobias-trelle">Tobias Trelle</a>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration
+@ContextConfiguration(classes=LocalhostMongoConfiguration.class)
 public class MongoDBRepoTest {
 	
 	 @Autowired UserRepository repo;

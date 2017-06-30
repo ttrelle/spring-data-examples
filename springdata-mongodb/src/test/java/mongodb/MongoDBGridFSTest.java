@@ -25,7 +25,7 @@ import com.mongodb.gridfs.GridFSDBFile;
  * @author <a href="http://blog.codecentric.de/en/author/tobias-trelle">Tobias Trelle</a>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration
+@ContextConfiguration(classes=LocalhostMongoGridFSConfiguration.class)
 public class MongoDBGridFSTest {
 	  
 	 @Autowired GridFsTemplate template;

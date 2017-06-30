@@ -28,7 +28,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  *         Trelle</a>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration
+@ContextConfiguration(classes=LocalhostMongoConfiguration.class)
 public class MongoDBGeoSpatialTest {
 
 	private static final Point DUS = new Point( 6.810036, 51.224088 );
