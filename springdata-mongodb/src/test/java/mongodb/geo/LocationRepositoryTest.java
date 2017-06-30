@@ -16,14 +16,10 @@ import org.springframework.data.geo.Circle;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.index.GeospatialIndex;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import mongodb.config.LocalhostMongoConfiguration;
-import mongodb.geo.Location;
-import mongodb.geo.LocationRepository;
 
 /**
  * Tests for Spring Data MongoDB - Geospatial queries.
@@ -40,12 +36,7 @@ public class LocationRepositoryTest {
 	@Autowired
 	LocationRepository repo;
 
-	@Autowired
-	MongoTemplate template;
-
 	@Before public void setUp() {
-		 // ensure geospatial index
-		 template.indexOps(Location.class).ensureIndex( new GeospatialIndex("position") );
 		 // prepare data
 		 repo.save( new Location("A", 0.001, -0.002) );
 		 repo.save( new Location("B", 1, 1) );
@@ -108,7 +99,7 @@ public class LocationRepositoryTest {
 
 	@After
 	public void tearDown() {
-		repo.deleteAll();
+		//repo.deleteAll();
 	}
 
 	private static void assertLocations(List<Location> locations, String... ids) {
