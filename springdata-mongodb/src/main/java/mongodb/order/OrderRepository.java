@@ -1,4 +1,4 @@
-package mongodb;
+package mongodb.order;
 
 import java.util.List;
 

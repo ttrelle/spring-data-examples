@@ -19,6 +19,8 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.gridfs.GridFSDBFile;
 
+import mongodb.config.LocalhostMongoGridFSConfiguration;
+
 /**
  * Tests for Spring Data MongoDB GridFS template.
  * 
@@ -45,18 +47,17 @@ public class MongoDBGridFSTest {
 		 // then
 		 List<GridFSDBFile> files = template.find(null);
 		 assertThat( files.size(), is(0) );
-		 
 	 }
 	 
 	 @Test public void shouldStoreFile() throws IOException {
 		 // given
 		 template.delete(null); // delete all files
-		 Resource res = new ClassPathResource("mongodb/MongoDBGridFSTest-context.xml");
+		 Resource res = new ClassPathResource("dummy.txt");
 		 DBObject metaData = new BasicDBObject();
 		 metaData.put("source", "my workspace");
 		 
 		 // when
-		 template.store(res.getInputStream(), "spring-context.xml", metaData);
+		 template.store(res.getInputStream(), "filename", metaData);
 		 
 		 // then
 		 List<GridFSDBFile> files = template.find(null);

@@ -1,4 +1,4 @@
-package mongodb;
+package mongodb.user;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -17,6 +17,10 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import mongodb.config.LocalhostMongoConfiguration;
+import mongodb.user.User;
+import mongodb.user.UserRepository;
+
 /**
  * Tests for Spring Data MongoDB.
  * 
@@ -24,7 +28,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=LocalhostMongoConfiguration.class)
-public class MongoDBRepoTest {
+public class UserRepositoryTest {
 	
 	 @Autowired UserRepository repo;
 	  

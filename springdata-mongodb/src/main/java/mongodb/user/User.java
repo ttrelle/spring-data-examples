@@ -1,4 +1,4 @@
-package mongodb;
+package mongodb.user;
 
 import java.util.Date;
 

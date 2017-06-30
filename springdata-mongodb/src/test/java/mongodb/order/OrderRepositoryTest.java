@@ -1,4 +1,4 @@
-package mongodb;
+package mongodb.order;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -14,6 +14,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import mongodb.config.LocalhostMongoConfiguration;
+import mongodb.order.Item;
+import mongodb.order.Order;
+import mongodb.order.OrderRepository;
 
 /**
  * Test cases for the {@link OrderRepository}.

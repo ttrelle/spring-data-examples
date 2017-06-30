@@ -1,4 +1,4 @@
-package mongodb;
+package mongodb.geo;
 
 import org.springframework.data.annotation.Id;
 

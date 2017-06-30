@@ -1,4 +1,4 @@
-package mongodb;
+package mongodb.order;
 
 import org.springframework.data.mongodb.core.mapping.Field;
 

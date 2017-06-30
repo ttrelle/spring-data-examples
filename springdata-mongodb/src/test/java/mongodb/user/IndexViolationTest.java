@@ -1,4 +1,4 @@
-package mongodb;
+package mongodb.user;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +9,10 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.index.Index;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import mongodb.config.LocalhostMongoConfiguration;
+import mongodb.user.User;
+import mongodb.user.UserRepository;
 
 /**
  * This test shows that violation on indexes are ignored.

@@ -1,4 +1,4 @@
-package mongodb;
+package mongodb.geo;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -21,6 +21,10 @@ import org.springframework.data.mongodb.core.index.GeospatialIndex;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import mongodb.config.LocalhostMongoConfiguration;
+import mongodb.geo.Location;
+import mongodb.geo.LocationRepository;
+
 /**
  * Tests for Spring Data MongoDB - Geospatial queries.
  * 
@@ -29,7 +33,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=LocalhostMongoConfiguration.class)
-public class MongoDBGeoSpatialTest {
+public class LocationRepositoryTest {
 
 	private static final Point DUS = new Point( 6.810036, 51.224088 );
 	
@@ -50,7 +54,7 @@ public class MongoDBGeoSpatialTest {
 		 
 		 repo.save( new Location("Berlin", 13.405838, 52.531261 ));
 		 repo.save( new Location("Cologne", 6.921272, 50.960157 ));
-		 repo.save( new Location("D�sseldorf", 6.810036, 51.224088 ) );		 
+		 repo.save( new Location("Düsseldorf", 6.810036, 51.224088 ) );		 
 	 }
 
 	@Test public void shouldFindSelf() {
@@ -58,7 +62,7 @@ public class MongoDBGeoSpatialTest {
 		List<Location> locations = repo.findByPositionNear(DUS , new Distance(1, Metrics.KILOMETERS) );
 
 		// then
-		assertLocations(locations, "D�sseldorf");
+		assertLocations(locations, "Düsseldorf");
 	}
 	
 	@Test public void shouldFindCologne() {
@@ -66,7 +70,7 @@ public class MongoDBGeoSpatialTest {
 		List<Location> locations = repo.findByPositionNear(DUS , new Distance(70, Metrics.KILOMETERS) );
 
 		// then
-		assertLocations(locations, "D�sseldorf", "Cologne");
+		assertLocations(locations, "Düsseldorf", "Cologne");
 	}
 
 	@Test public void shouldFindCologneAndBerlin() {
@@ -74,7 +78,7 @@ public class MongoDBGeoSpatialTest {
 		List<Location> locations = repo.findByPositionNear(DUS , new Distance(350, Metrics.MILES) );
 
 		// then
-		assertLocations(locations, "D�sseldorf", "Cologne", "Berlin");
+		assertLocations(locations, "Düsseldorf", "Cologne", "Berlin");
 	}
 	
 	@Test public void shouldFindAll() {
@@ -82,7 +86,7 @@ public class MongoDBGeoSpatialTest {
 		List<Location> locations = repo.findAll();
 
 		// then
-		assertLocations(locations, "A", "B", "C", "D", "Berlin", "Cologne", "D�sseldorf");
+		assertLocations(locations, "A", "B", "C", "D", "Berlin", "Cologne", "Düsseldorf");
 	}
 
 	@Test public void shouldFindAroundOrigin() {

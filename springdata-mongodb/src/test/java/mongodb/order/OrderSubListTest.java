@@ -1,4 +1,4 @@
-package mongodb;
+package mongodb.order;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
@@ -18,6 +18,11 @@ import org.springframework.data.mongodb.core.aggregation.Aggregation;
 import org.springframework.data.mongodb.core.aggregation.AggregationResults;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import mongodb.config.LocalhostMongoConfiguration;
+import mongodb.order.Item;
+import mongodb.order.Order;
+import mongodb.order.OrderRepository;
 
 /**
  * Test cases for aggregations.
