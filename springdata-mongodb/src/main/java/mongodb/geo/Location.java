@@ -2,8 +2,6 @@ package mongodb.geo;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
-import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
-import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 
 /**
  * A named location, using GeoJSON API.
@@ -13,7 +11,6 @@ public class Location {
 
 	@Id private String id;
 	
-	@GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)
 	private GeoJsonPoint position;
 	
 	public Location() {}

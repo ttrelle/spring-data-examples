@@ -16,6 +16,9 @@ import org.springframework.data.geo.Circle;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
+import org.springframework.data.mongodb.core.index.GeospatialIndex;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -34,9 +37,16 @@ public class LocationRepositoryTest {
 	private static final Point DUS = new Point( 6.810036, 51.224088 );
 	
 	@Autowired
+	private MongoTemplate template;
+	
+	@Autowired
 	LocationRepository repo;
 
 	@Before public void setUp() {
+		template
+			.indexOps(Location.class)
+			.ensureIndex(new GeospatialIndex("position").typed(GeoSpatialIndexType.GEO_2DSPHERE));
+		
 		 // prepare data
 		 repo.save( new Location("A", 0.001, -0.002) );
 		 repo.save( new Location("B", 1, 1) );
