@@ -15,6 +15,7 @@
 		<module>springdata-neo4j</module>
 		<module>springdata-jpa</module>
 		<module>spring-boot-mongo</module>
+		<module>mongodb36</module>
 	</modules>
 
 	<properties>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.codecentric</groupId>
+		<artifactId>springdata-examples</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<groupId>de.codecentric</groupId>
+	<artifactId>mongodriver</artifactId>
+	<version>1.0.0</version>
+	<name>mongodb36</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<mongo.driver.version>3.6.0</mongo.driver.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongo-java-driver</artifactId>
+			<version>${mongo.driver.version}</version>
+		</dependency>
+	</dependencies>
+</project>
