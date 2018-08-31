@@ -8,13 +8,12 @@
 		<artifactId>springdata-examples</artifactId>
 		<version>1.0.0</version>
 	</parent>
-	<groupId>de.codecentric</groupId>
 	<artifactId>mongodriver</artifactId>
-	<version>1.0.0</version>
-	<name>mongodb36</name>
-	<url>http://maven.apache.org</url>
 	<properties>
-		<mongo.driver.version>3.6.0</mongo.driver.version>
+		<!-- see
+		https://docs.mongodb.com/manual/release-notes/4.0/?_ga=2.185922027.371293580.1535706960-1835450239.1502345082#drivers
+		 -->
+		<mongo.driver.version>3.8.1</mongo.driver.version>
 	</properties>
 
 	<dependencies>

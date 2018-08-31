@@ -1,4 +1,4 @@
-package driverclient;
+package de.codecentric.driverclient;
 
 import java.io.UnsupportedEncodingException;
 import java.net.UnknownHostException;

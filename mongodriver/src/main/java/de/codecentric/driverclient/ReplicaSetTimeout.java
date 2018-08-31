@@ -1,4 +1,4 @@
-package driverclient;
+package de.codecentric.driverclient;
 
 import java.util.ArrayList;
 import java.util.Arrays;
