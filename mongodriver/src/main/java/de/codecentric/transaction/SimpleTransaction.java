@@ -6,6 +6,7 @@ import java.net.UnknownHostException;
 import org.bson.Document;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.MongoException;
 import com.mongodb.client.ClientSession;
 import com.mongodb.client.MongoCollection;
@@ -29,17 +30,11 @@ public class SimpleTransaction {
 		MongoClient client = null;
 
 		try {
-			// Default: localhost:27017
-			client = new MongoClient();
-
-			// Sharding: mongos server
-			// mongo = new MongoClient("mongos-1", 4711);
-
 			// Replica set
-			// client = new MongoClient(
-			// new
-			// MongoClientURI("mongodb://localhost:27001,localhost:27002,localhost:27003/replicaSet=demo-dev")
-			// );
+			 client = new MongoClient(
+			 new
+			 MongoClientURI("mongodb://localhost:27001,localhost:27002,localhost:27003/replicaSet=demo-dev")
+			 );
 
 			// use database "test"
 			MongoDatabase db = client.getDatabase("test");
