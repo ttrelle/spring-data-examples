@@ -1,0 +1,40 @@
+version: '2'
+
+services:
+  primary:
+    image: 'bitnami/mongodb:4.0.3'
+    environment:
+      - MONGODB_REPLICA_SET_NAME=dev0
+      - MONGODB_REPLICA_SET_MODE=primary
+    ports:
+      - "27001:27017"
+    volumes:
+      - 'mongodb_master_data:/bitnami'
+
+  secondary:
+    image: 'bitnami/mongodb:4.0.3'
+    depends_on:
+      - primary
+    ports:
+      - "27002:27017"
+    environment:
+      - MONGODB_REPLICA_SET_NAME=dev0
+      - MONGODB_REPLICA_SET_MODE=secondary
+      - MONGODB_PRIMARY_HOST=primary
+      - MONGODB_PRIMARY_PORT_NUMBER=27017
+
+  arbiter:
+    image: 'bitnami/mongodb:4.0.3'
+    depends_on:
+      - primary
+    ports:
+      - "27003:27017"
+    environment:
+      - MONGODB_REPLICA_SET_NAME=dev0
+      - MONGODB_REPLICA_SET_MODE=arbiter
+      - MONGODB_PRIMARY_HOST=primary
+      - MONGODB_PRIMARY_PORT_NUMBER=27017
+
+volumes:
+  mongodb_master_data:
+    driver: local
