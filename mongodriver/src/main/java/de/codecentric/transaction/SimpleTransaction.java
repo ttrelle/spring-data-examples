@@ -27,17 +27,13 @@ public class SimpleTransaction {
 	 * @throws UnsupportedEncodingException
 	 */
 	public static void main(String[] argv) throws UnknownHostException, MongoException, UnsupportedEncodingException {
-		MongoClient client = null;
-
-		try {
-			// Replica set
-			 client = new MongoClient(
-			 new
-			 MongoClientURI("mongodb://localhost:27001,localhost:27002,localhost:27003/replicaSet=demo-dev")
-			 );
-
+		try (MongoClient client = new MongoClient(
+				// Replica set
+				new MongoClientURI("mongodb://mongo1:27001,mongo2:27002,mongo3:27003/replicaSet=dev0")
+			 )) {
 			// use database "test"
 			MongoDatabase db = client.getDatabase("test");
+			// collection must be created beforehand *outside* the transaction!
 			MongoCollection<Document> collection = db.getCollection("foo");
 
 			try (ClientSession clientSession = client.startSession()) {
@@ -45,11 +41,7 @@ public class SimpleTransaction {
 				collection.insertOne(clientSession, new Document("i", 1));
 				collection.insertOne(clientSession, new Document("i", 2));
 				clientSession.commitTransaction();
-			}
-
-		} finally {
-			if (client != null) {
-				client.close();
+				println("Transaction committed sucessfully.");
 			}
 		}
 	}
