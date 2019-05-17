@@ -1,39 +1,50 @@
-version: '2'
+version: '3.4'
 
 services:
-  primary:
-    image: 'bitnami/mongodb:4.0.3'
+
+  # Primary
+  mongo1:
+    image: 'bitnami/mongodb:4.0.9'
+    container_name: 'rs-dev0-1'
     environment:
+      - MONGODB_PORT_NUMBER=27001
       - MONGODB_REPLICA_SET_NAME=dev0
       - MONGODB_REPLICA_SET_MODE=primary
+      - MONGODB_ADVERTISED_HOSTNAME=mongo1
     ports:
-      - "27001:27017"
-    volumes:
-      - 'mongodb_master_data:/bitnami'
+      - "27001:27001"
 
-  secondary:
-    image: 'bitnami/mongodb:4.0.3'
+  # Secondary
+  mongo2:
+    image: 'bitnami/mongodb:4.0.9'
+    container_name: 'rs-dev0-2'
     depends_on:
-      - primary
+      - mongo1
     ports:
-      - "27002:27017"
+      - "27002:27002"
     environment:
+      - MONGODB_PORT_NUMBER=27002
       - MONGODB_REPLICA_SET_NAME=dev0
       - MONGODB_REPLICA_SET_MODE=secondary
-      - MONGODB_PRIMARY_HOST=primary
-      - MONGODB_PRIMARY_PORT_NUMBER=27017
+      - MONGODB_ADVERTISED_HOSTNAME=mongo2
+      - MONGODB_PRIMARY_HOST=mongo1
+      - MONGODB_PRIMARY_PORT_NUMBER=27001
 
-  arbiter:
-    image: 'bitnami/mongodb:4.0.3'
+  # Arbiter
+  mongo3:
+    image: 'bitnami/mongodb:4.0.9'
+    container_name: 'rs-dev0-3'
     depends_on:
-      - primary
+      - mongo1
     ports:
-      - "27003:27017"
+      - "27003:27003"
     environment:
+      - MONGODB_PORT_NUMBER=27003      
       - MONGODB_REPLICA_SET_NAME=dev0
       - MONGODB_REPLICA_SET_MODE=arbiter
-      - MONGODB_PRIMARY_HOST=primary
-      - MONGODB_PRIMARY_PORT_NUMBER=27017
+      - MONGODB_ADVERTISED_HOSTNAME=mongo3
+      - MONGODB_PRIMARY_HOST=mongo1
+      - MONGODB_PRIMARY_PORT_NUMBER=27001
 
 volumes:
   mongodb_master_data:

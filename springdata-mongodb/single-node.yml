@@ -2,7 +2,7 @@ version: "2"
 
 services:
   mongodb:
-      image: mongo:4.0.2
+      image: mongo:4.0.9
       container_name: "mongodb"
       volumes:
         - ./datasets:/datasets
