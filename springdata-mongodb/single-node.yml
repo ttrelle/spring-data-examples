@@ -1,0 +1,11 @@
+version: "2"
+
+services:
+  mongodb:
+      image: mongo:4.0.2
+      container_name: "mongodb"
+      volumes:
+        - ./datasets:/datasets
+        - ./uebungen:/uebungen
+      ports:
+          - 27017:27017
