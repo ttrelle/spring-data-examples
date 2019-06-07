@@ -6,11 +6,12 @@ import java.net.UnknownHostException;
 import org.bson.Document;
 
 import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
 import com.mongodb.MongoException;
 import com.mongodb.client.ClientSession;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+
+import de.codecentric.Connection;
 
 /**
  * Simple transaction example.
@@ -27,10 +28,7 @@ public class SimpleTransaction {
 	 * @throws UnsupportedEncodingException
 	 */
 	public static void main(String[] argv) throws UnknownHostException, MongoException, UnsupportedEncodingException {
-		try (MongoClient client = new MongoClient(
-				// Replica set
-				new MongoClientURI("mongodb://mongo1:27001,mongo2:27002,mongo3:27003/replicaSet=dev0")
-			 )) {
+		try (MongoClient client = new MongoClient(Connection.URI)) {
 			// use database "test"
 			MongoDatabase db = client.getDatabase("test");
 			// collection must be created beforehand *outside* the transaction!
