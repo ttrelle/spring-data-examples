@@ -2,7 +2,9 @@ package mongodb.order;
 
 import java.util.Date;
 
+import org.bson.Document;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
+import org.springframework.data.mongodb.core.mapping.event.BeforeSaveEvent;
 
 import com.mongodb.DBObject;
 
@@ -15,14 +17,17 @@ import com.mongodb.DBObject;
 public class OrderBeforeSaveListener extends AbstractMongoEventListener<Order>  {
 
 	@Override
-	public void onBeforeSave(Order source, DBObject dbo) {
-		if ( source.getId() == null ) {
+	public void onBeforeSave(BeforeSaveEvent<Order> event) {
+		Order o = event.getSource();
+		Document d = event.getDocument();
+		
+		if ( o.getId() == null ) {
 			// TODO use a better UUID generator in production
-			dbo.put("_id","" + Math.random() );
+			d.put("_id","" + Math.random() );
 		}
 		
-		if ( source.getDate() == null ) {
-			dbo.put("date", new Date());
+		if ( o.getDate() == null ) {
+			d.put("date", new Date());
 		}
 	}
 
