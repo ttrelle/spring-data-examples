@@ -10,3 +10,7 @@ addons:
     - mongodb-3.4-precise
     packages:
     - mongodb-org-server  
+
+cache:
+  directories:
+  - $HOME/.m2
