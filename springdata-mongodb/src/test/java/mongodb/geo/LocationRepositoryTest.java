@@ -2,14 +2,14 @@ package mongodb.geo;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.List;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Box;
 import org.springframework.data.geo.Circle;
@@ -20,69 +20,73 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
 import org.springframework.data.mongodb.core.index.GeospatialIndex;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import mongodb.config.LocalhostMongoConfiguration;
 
 /**
  * Tests for Spring Data MongoDB - Geospatial queries.
- * 
- * @author <a href="http://blog.codecentric.de/en/author/tobias-trelle">Tobias
- *         Trelle</a>
+ *
+ * @author <a href="http://blog.codecentric.de/en/author/tobias-trelle">Tobias Trelle</a>
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=LocalhostMongoConfiguration.class)
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = LocalhostMongoConfiguration.class)
 public class LocationRepositoryTest {
 
-	private static final Point DUS = new Point( 6.810036, 51.224088 );
-	
+	private static final Point DUS = new Point(6.810036, 51.224088);
+
 	@Autowired
 	private MongoTemplate template;
-	
+
 	@Autowired
 	LocationRepository repo;
 
-	@Before public void setUp() {
+	@BeforeEach
+	public void setUp() {
 		template
 			.indexOps(Location.class)
 			.ensureIndex(new GeospatialIndex("position").typed(GeoSpatialIndexType.GEO_2DSPHERE));
-		
-		 // prepare data
-		 repo.save( new Location("A", 0.001, -0.002) );
-		 repo.save( new Location("B", 1, 1) );
-		 repo.save( new Location("C", 0.5, 0.5) );
-		 repo.save( new Location("D", -0.5, -0.5) );
-		 
-		 repo.save( new Location("Berlin", 13.405838, 52.531261 ));
-		 repo.save( new Location("Cologne", 6.921272, 50.960157 ));
-		 repo.save( new Location("Düsseldorf", 6.810036, 51.224088 ) );		 
-	 }
 
-	@Test public void shouldFindSelf() {
+		// prepare data
+		repo.save(new Location("A", 0.001, -0.002));
+		repo.save(new Location("B", 1, 1));
+		repo.save(new Location("C", 0.5, 0.5));
+		repo.save(new Location("D", -0.5, -0.5));
+
+		repo.save(new Location("Berlin", 13.405838, 52.531261));
+		repo.save(new Location("Cologne", 6.921272, 50.960157));
+		repo.save(new Location("Düsseldorf", 6.810036, 51.224088));
+	}
+
+	@Test
+	public void shouldFindSelf() {
 		// when
-		List<Location> locations = repo.findByPositionNear(DUS , new Distance(1, Metrics.KILOMETERS) );
+		List<Location> locations = repo.findByPositionNear(DUS, new Distance(1, Metrics.KILOMETERS));
 
 		// then
 		assertLocations(locations, "Düsseldorf");
 	}
-	
-	@Test public void shouldFindCologne() {
+
+	@Test
+	public void shouldFindCologne() {
 		// when
-		List<Location> locations = repo.findByPositionNear(DUS , new Distance(70, Metrics.KILOMETERS) );
+		List<Location> locations = repo.findByPositionNear(DUS, new Distance(70, Metrics.KILOMETERS));
 
 		// then
 		assertLocations(locations, "Düsseldorf", "Cologne");
 	}
 
-	@Test public void shouldFindCologneAndBerlin() {
+	@Test
+	public void shouldFindCologneAndBerlin() {
 		// when
-		List<Location> locations = repo.findByPositionNear(DUS , new Distance(350, Metrics.MILES) );
+		List<Location> locations = repo.findByPositionNear(DUS, new Distance(350, Metrics.MILES));
 
 		// then
 		assertLocations(locations, "Düsseldorf", "Cologne", "Berlin");
 	}
-	
-	@Test public void shouldFindAll() {
+
+	@Test
+	public void shouldFindAll() {
 		// when
 		List<Location> locations = repo.findAll();
 
@@ -90,7 +94,8 @@ public class LocationRepositoryTest {
 		assertLocations(locations, "A", "B", "C", "D", "Berlin", "Cologne", "Düsseldorf");
 	}
 
-	@Test public void shouldFindAroundOrigin() {
+	@Test
+	public void shouldFindAroundOrigin() {
 		// when
 		List<Location> locations = repo.findByPositionWithin(new Circle(0, 0, 0.75));
 
@@ -98,22 +103,22 @@ public class LocationRepositoryTest {
 		assertLocations(locations, "A", "C", "D");
 	}
 
-	@Test public void shouldFindWithinBox() {
+	@Test
+	public void shouldFindWithinBox() {
 		// when
-		List<Location> locations = repo.findByPositionWithin(new Box(new Point(
-				0.25, 0.25), new Point(1, 1)));
+		List<Location> locations = repo.findByPositionWithin(new Box(new Point(0.25, 0.25), new Point(1, 1)));
 
 		// then
 		assertLocations(locations, "B", "C");
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() {
 		//repo.deleteAll();
 	}
 
 	private static void assertLocations(List<Location> locations, String... ids) {
-		assertThat( locations, notNullValue() );
+		assertThat(locations, notNullValue());
 		out("-----------------------------");
 		for (Location l : locations) {
 			out(l);

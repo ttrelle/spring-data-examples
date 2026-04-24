@@ -18,10 +18,13 @@ services:
       SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/test
 
   mongo:
-    image: mongo:3.4.10
-    ports: 
+    image: mongo:4.4
+    ports:
       - "27017:27017"
     networks:
       - servicenet
     volumes:
-      - /data/db:/data/db
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:

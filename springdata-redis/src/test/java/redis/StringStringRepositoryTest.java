@@ -1,22 +1,22 @@
 package redis;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration
 public class StringStringRepositoryTest {
-	
+
 	@Autowired StringStringRepository repo;
-	
-	@Before
+
+	@BeforeEach
 	public void setUp() {
 		repo.add("foo", "bar");
 	}
@@ -24,9 +24,9 @@ public class StringStringRepositoryTest {
 	@Test
 	public void shouldFindValue() {
 		String value = repo.getValue("foo");
-		
-		assertNotNull("Value is <null>", value);
-		assertEquals( "Value mismatch" , "bar", value);
+
+		assertNotNull(value, "Value is <null>");
+		assertEquals("bar", value, "Value mismatch");
 	}
-	
+
 }

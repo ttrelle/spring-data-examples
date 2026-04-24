@@ -2,11 +2,11 @@ package mongodb.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
+import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
-import com.mongodb.Mongo;
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 
 import mongodb.order.OrderBeforeSaveListener;
 
@@ -16,8 +16,8 @@ import mongodb.order.OrderBeforeSaveListener;
  */
 @Configuration
 @EnableMongoRepositories({"mongodb.geo", "mongodb.order", "mongodb.user"})
-public class LocalhostMongoConfiguration extends AbstractMongoConfiguration {
-	
+public class LocalhostMongoConfiguration extends AbstractMongoClientConfiguration {
+
 	@Bean
 	public OrderBeforeSaveListener beforeSaveListener() {
 		return new OrderBeforeSaveListener();
@@ -30,7 +30,7 @@ public class LocalhostMongoConfiguration extends AbstractMongoConfiguration {
 
 	@Override
 	public MongoClient mongoClient() {
-		return new MongoClient();
+		return MongoClients.create();
 	}
-	
+
 }

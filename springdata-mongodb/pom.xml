@@ -13,37 +13,16 @@
 	<name>Spring Data MongoDB Examples</name>
 	<url>https://github.com/ttrelle/spring-data-examples/tree/master/springdata-mongodb</url>
 
-	<properties>
-		<spring.data.mongodb.version>2.1.8.RELEASE</spring.data.mongodb.version>
-		<mongo.driver.version>3.4.2</mongo.driver.version>
-		<spring.version>4.2.9.RELEASE</spring.version>
-	</properties>
-
 	<dependencies>
 
-		<!--  
 		<dependency>
-			<groupId>org.mongodb</groupId>
-			<artifactId>mongo-java-driver</artifactId>
-			<version>${mongo.driver.version}</version>
-		</dependency>
-		-->
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-mongodb</artifactId>
-			<version>${spring.data.mongodb.version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>${spring.version}</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -61,11 +40,4 @@
 		</resources>
 	</build>
 
-	<repositories>
-		<repository>
-			<id>spring-snapshot</id>
-			<name>Spring Maven SNAPSHOT Repository</name>
-			<url>http://repo.springsource.org/libs-snapshot</url>
-		</repository>
-	</repositories>
 </project>

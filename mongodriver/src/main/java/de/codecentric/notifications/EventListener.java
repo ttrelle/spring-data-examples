@@ -7,29 +7,30 @@ import static java.util.Arrays.asList;
 
 import org.bson.Document;
 
-import com.mongodb.MongoClient;
 import com.mongodb.client.ChangeStreamIterable;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Aggregates;
 
 import de.codecentric.Connection;
 
-public class EventListener  {
-	
-    public static void main(String[] args) throws Exception {
-		try (MongoClient client = new MongoClient(Connection.URI)) {
-    		MongoCollection<Document> eventCollection = 
-    				client.getDatabase("test").getCollection("events");
-	
-    		ChangeStreamIterable<Document> changes = eventCollection.watch(asList( 
-    				Aggregates.match( and( asList( 
-    					in("operationType", asList("insert")),
-    					eq("fullDocument.even", 1L)))
-    	    )));
-    		
-    		changes.iterator().forEachRemaining(
-    				change -> System.out.println("received: " + change.getFullDocument())
-    		);
+public class EventListener {
+
+	public static void main(String[] args) throws Exception {
+		try (MongoClient client = MongoClients.create(Connection.URI)) {
+			MongoCollection<Document> eventCollection =
+					client.getDatabase("test").getCollection("events");
+
+			ChangeStreamIterable<Document> changes = eventCollection.watch(asList(
+					Aggregates.match(and(asList(
+						in("operationType", asList("insert")),
+						eq("fullDocument.even", 1L)))
+			)));
+
+			changes.iterator().forEachRemaining(
+					change -> System.out.println("received: " + change.getFullDocument())
+			);
 		}
-    }
+	}
 }

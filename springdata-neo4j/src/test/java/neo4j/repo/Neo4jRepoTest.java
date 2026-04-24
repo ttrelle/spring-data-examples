@@ -1,44 +1,40 @@
 package neo4j.repo;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import java.util.HashMap;
 import java.util.List;
 
 import neo4j.domain.User;
-import neo4j.repo.UserRepository;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.neo4j.ogm.session.result.Result;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.neo4j.template.Neo4jOperations;
+import org.springframework.data.neo4j.core.Neo4jClient;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = Neo4jTestConfig.class)
 public class Neo4jRepoTest {
 
 	private static final int USER_COUNT = 4;
 
 	@Autowired
-	Neo4jOperations template;
-	
+	Neo4jClient neo4jClient;
+
 	@Autowired
 	UserRepository repo;
 
-	private long rootId;
+	private Long rootId;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
-		// create index User(login)
-		Result result = template.query("CREATE INDEX ON :User(login)", new HashMap<String, Object>() );
-		
+		neo4jClient.query("CREATE INDEX user_login IF NOT EXISTS FOR (u:User) ON (u.login)").run();
+
 		User root = new User("root", "Superuser");
 		User[] user = new User[USER_COUNT];
 
@@ -46,7 +42,6 @@ public class Neo4jRepoTest {
 			user[i] = new User(String.format("user%02d", i), "User" + i);
 		}
 
-		// build graph
 		for (int i = 0; i < user.length; i++) {
 			root.knows(user[i]);
 			for (int j = i; j < user.length; j++) {
@@ -54,64 +49,42 @@ public class Neo4jRepoTest {
 			}
 		}
 
-		// save nodes
 		for (int i = 0; i < user.length; i++) {
 			repo.save(user[i]);
 		}
 		repo.save(root);
 		rootId = root.getId();
-		out("Root id: " + rootId);
-
 	}
 
 	@Test
 	public void shouldFindAll() {
-		// when
 		long n = repo.count();
-
-		// then
-		assertEquals("User count mismatch", USER_COUNT + 1, n);
+		assertEquals(USER_COUNT + 1, n, "User count mismatch");
 	}
 
 	@Test
 	public void shouldFindRootUserById() {
-		// when
-		User root = repo.findOne(rootId);
-
-		// then
-		assertNotNull("Root user not found", root);
+		User root = repo.findById(rootId).orElse(null);
+		assertNotNull(root, "Root user not found");
 	}
 
 	@Test
 	public void shouldFindRootUserByLogin() {
-		// when
 		User root = repo.findByLogin("root");
-
-		// then
-		assertNotNull("Root user not found", root);
+		assertNotNull(root, "Root user not found");
 	}
 
-	// TODO fixme
-	// Caused by: org.neo4j.ogm.session.result.ResultProcessingException: "errors":[{"code":"Neo.ClientError.Schema.NoSuchIndex
-	// ","message":"Index `User` does not exist"}]}
 	@Test
-	@Ignore
+	@Disabled
 	public void shouldFindFriendsOfRoot() {
-		// when
 		List<User> users = repo.findFriendsOfRoot();
-
-		// then
-		assertNotNull("result is <null>", users);
-		assertEquals("mismatch @ friend count", USER_COUNT, users.size());
+		assertNotNull(users, "result is <null>");
+		assertEquals(USER_COUNT, users.size(), "mismatch @ friend count");
 	}
 
-	@After
+	@AfterEach
 	public void tearDown() {
 		repo.deleteAll();
-	}
-
-	private static void out(Object o) {
-		System.out.println(o);
 	}
 
 }

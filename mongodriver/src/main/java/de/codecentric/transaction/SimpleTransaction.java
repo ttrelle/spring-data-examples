@@ -1,13 +1,11 @@
 package de.codecentric.transaction;
 
-import java.io.UnsupportedEncodingException;
-import java.net.UnknownHostException;
-
 import org.bson.Document;
 
-import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
 import com.mongodb.client.ClientSession;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
@@ -20,15 +18,12 @@ public class SimpleTransaction {
 
 	/**
 	 * CLI call.
-	 * 
-	 * @param argv
-	 *            command line arguments
+	 *
+	 * @param argv command line arguments
 	 * @throws MongoException
-	 * @throws UnknownHostException
-	 * @throws UnsupportedEncodingException
 	 */
-	public static void main(String[] argv) throws UnknownHostException, MongoException, UnsupportedEncodingException {
-		try (MongoClient client = new MongoClient(Connection.URI)) {
+	public static void main(String[] argv) throws MongoException {
+		try (MongoClient client = MongoClients.create(Connection.URI)) {
 			// use database "test"
 			MongoDatabase db = client.getDatabase("test");
 			// collection must be created beforehand *outside* the transaction!
@@ -39,7 +34,7 @@ public class SimpleTransaction {
 				collection.insertOne(clientSession, new Document("i", 1));
 				collection.insertOne(clientSession, new Document("i", 2));
 				clientSession.commitTransaction();
-				println("Transaction committed sucessfully.");
+				println("Transaction committed successfully.");
 			}
 		}
 	}

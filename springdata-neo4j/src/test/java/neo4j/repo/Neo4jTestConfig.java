@@ -1,26 +1,21 @@
 package neo4j.repo;
 
-import org.neo4j.ogm.session.SessionFactory;
+import org.neo4j.driver.AuthTokens;
+import org.neo4j.driver.Driver;
+import org.neo4j.driver.GraphDatabase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.neo4j.config.Neo4jConfiguration;
+import org.springframework.data.neo4j.config.AbstractNeo4jConfig;
 import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
-import org.springframework.data.neo4j.server.InProcessServer;
-import org.springframework.data.neo4j.server.Neo4jServer;
-import org.springframework.data.neo4j.template.Neo4jTemplate;
 
 @Configuration
 @EnableNeo4jRepositories("neo4j.repo")
-public class Neo4jTestConfig extends Neo4jConfiguration {
+public class Neo4jTestConfig extends AbstractNeo4jConfig {
 
+	@Bean
 	@Override
-	public Neo4jServer neo4jServer() {
-		return new InProcessServer();
-	}
-
-	@Override
-	public SessionFactory getSessionFactory() {
-		return new SessionFactory("neo4j.domain");
+	public Driver driver() {
+		return GraphDatabase.driver("bolt://localhost:7687", AuthTokens.none());
 	}
 
 }

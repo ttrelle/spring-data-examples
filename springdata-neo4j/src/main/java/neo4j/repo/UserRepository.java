@@ -4,15 +4,14 @@ import java.util.List;
 
 import neo4j.domain.User;
 
-import org.springframework.data.neo4j.annotation.Query;
-import org.springframework.data.neo4j.repository.GraphRepository;
+import org.springframework.data.neo4j.repository.Neo4jRepository;
+import org.springframework.data.neo4j.repository.query.Query;
 
-/** Neo4j repository. */
-public interface UserRepository extends GraphRepository<User> {
-	
+public interface UserRepository extends Neo4jRepository<User, Long> {
+
 	User findByLogin(String login);
-	
-	@Query("START root=node:User(login = 'root') MATCH root-[:knows]->friends RETURN friends")
+
+	@Query("MATCH (root:User {login: 'root'})-[:KNOWS]->(friends) RETURN friends")
 	List<User> findFriendsOfRoot();
-	
+
 }

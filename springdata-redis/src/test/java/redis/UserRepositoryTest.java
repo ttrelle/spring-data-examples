@@ -1,33 +1,33 @@
 package redis;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration
 public class UserRepositoryTest {
-	
+
 	@Autowired UserRepository repo;
-	
-	@Before
+
+	@BeforeEach
 	public void setUp() {
-		repo.add( new User("root", "Superuser") );
+		repo.add(new User("root", "Superuser"));
 	}
 
 	@Test
 	public void shouldFindValue() {
 		User user = repo.get("root");
-		
-		assertNotNull("Value is <null>", user);
-		assertEquals( "login mismatch" , "root", user.getLogin());
-		assertEquals( "login mismatch" , "Superuser", user.getFullName());
+
+		assertNotNull(user, "Value is <null>");
+		assertEquals("root", user.getLogin(), "login mismatch");
+		assertEquals("Superuser", user.getFullName(), "fullName mismatch");
 	}
-	
+
 }

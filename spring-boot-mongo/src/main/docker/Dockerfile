@@ -1,4 +1,4 @@
-FROM java:8
+FROM eclipse-temurin:8-jre
 VOLUME /tmp
 ADD spring-boot-mongo*.jar mongorest.jar
 RUN sh -c 'touch /mongorest.jar'

@@ -1,18 +1,14 @@
 package de.codecentric.driverclient;
 
-import java.io.UnsupportedEncodingException;
-import java.net.UnknownHostException;
 import java.util.Date;
 
-import org.bson.BSON;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
 import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
@@ -25,133 +21,79 @@ public class SimpleMongoClient {
 	/**
 	 * CLI call.
 	 * @param argv command line arguments
-	 * @throws MongoException 
-	 * @throws UnknownHostException 
-	 * @throws UnsupportedEncodingException 
+	 * @throws MongoException
 	 */
-	public static void main(String[] argv) throws UnknownHostException, MongoException, UnsupportedEncodingException {
-		MongoClient mongo = null;
-		
-		try {
-			// Default: localhost:27017
-			mongo = new MongoClient();
-			
+	public static void main(String[] argv) throws MongoException {
+		try (MongoClient mongo = MongoClients.create()) {
+
 			// Sharding: mongos server
-			// mongo = new MongoClient("mongos-1", 4711);
-			
+			// MongoClients.create("mongodb://mongos-1:4711")
+
 			// Replica set
-//			mongo = new MongoClient(
-//		s			new MongoClientURI("mongodb://localhost:27001,localhost:27002,localhost:27003/replicaSet=demo-dev")
-//					);
-			
+			// MongoClients.create("mongodb://localhost:27001,localhost:27002,localhost:27003/?replicaSet=demo-dev")
+
 			// use database "test"
 			MongoDatabase db = mongo.getDatabase("test");
-			
+
 			// get collection names
 			MongoIterable<String> colls = db.listCollectionNames();
 			for (String s : colls) {
 			    println(s);
 			}
-			
+
 			// use collection "foo"
 			MongoCollection<Document> collection = db.getCollection("foo");
-			
+
 			insert(collection);
 			find(collection);
-			
+
 			// remove(collection);
-			// bsonize();
-			} finally {
-				if (mongo != null) {
-					mongo.close();
-				}
-			}
+		}
 	}
-	
+
 	private static void remove(MongoCollection<Document> collection) {
-		// alle Dokuemente mit {i: 42}
-		Bson criteria = new BasicDBObject("i", 42);
+		// alle Dokumente mit {i: 42}
+		Bson criteria = new Document("i", 42);
 		collection.deleteOne(criteria);
-		
+
 		// alle Dokumente
-		collection.deleteMany( new BasicDBObject() );
-		
+		collection.deleteMany(new Document());
+
 		// schneller:
 		collection.drop();
 	}
-	
-	
+
 	private static void insert(MongoCollection<Document> collection) {
 		// Document speichern
 		Document doc = new Document();
 		doc.put("date", new Date());
 		doc.put("i", 42);
-		
+
 		collection.insertOne(doc);
 	}
-	
+
 	private static void find(MongoCollection<Document> collection) {
 		FindIterable<Document> cursor;
-		
+
 		// alle Dokumente
 		cursor = collection.find();
 
-		for ( Document document: cursor ) {
+		for (Document document : cursor) {
 			println(document);
 		}
 	}
 
 	private static void find(MongoCollection<Document> collection, Bson query) {
-		FindIterable<Document> cursor;
-		
-		// alle Dokumente
-		cursor = collection.find();
-		
 		// Dokumente mit {i: 42}
-		cursor = collection.find( query ); 
-		
-		for ( Document document: cursor ) {
+		FindIterable<Document> cursor = collection.find(query);
+
+		for (Document document : cursor) {
 			println(document);
 		}
 	}
-	
-	
-	private static void bsonize() throws UnsupportedEncodingException {
-		final String key = "hello";
-		final String value = "MongoDB";
-		
-		bsonize( new BasicDBObject(key, value) );
-		println( toString(key.getBytes("UTF-8")) );
-		println( toString(value.getBytes("UTF-8")) );
-	}
 
-	
-	private static void bsonize(DBObject doc) {
-		final byte[] buff = BSON.encode(doc);
-		
-		println( toString(buff) );
-	}
-	
-	private static String toString(byte[] buff) {
-		final StringBuilder sb = new StringBuilder();
-		
-		for (int i = 0; i < buff.length; i++) {
-			sb.append("\\x");
-			
-			String hex = Integer.toHexString(buff[i]);
-			if ( hex.length() < 2 ) {
-				sb.append("0");
-			}
-				
-			sb.append(hex);
-			;
-		}
-
-		return sb.toString();
-	}
-	
 	private static final void println(Object o) {
 		System.out.println(o);
 	}
-	
+
 }
